@@ -25,10 +25,25 @@ app.get("*", (req, res) => {
 });
 //for adding new notes
 app.post("/api/notes", (req, res)=>{
-    
-});
-//for deleting notes depending on their id
-app.delete("/api/notes/:id", (req,res)=>{
+    let noteNew = req.body;
+    let list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let length = (list.length).toString();
 
+    noteNew.len = length;
+    list.push(noteNew);
+
+    fs.writeFileSync("./db/db.json", JSON.stringify(list));
+    res.json(list);
+});
+//for deleting notes depending on their length as identification
+app.delete("/api/notes/:len", (req,res)=>{
+    let list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let id = (req.params.len).toString();
+
+    list = list.filter(selected =>{
+        return selected.id != id;
+    });
+    fs.writeFileSync("./db/db.json", JSON.stringify(list));
+    res.json(list);
 });
 app.listen(PORT, () => console.log("Listening on port "+ PORT));
