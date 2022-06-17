@@ -38,7 +38,7 @@ app.post("/api/notes", (req, res)=>{
 //for deleting notes depending on their length as identification
 app.delete("/api/notes/:id", (req,res)=>{
     let list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let noteId = (req.params.len).toString();
+    let noteId = (req.params.id).toString();
 
     list = list.filter(selected =>{
         return selected.id != noteId;
