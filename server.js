@@ -23,4 +23,12 @@ app.get("/api/notes", (req, res) => {
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
+//for adding new notes
+app.post("/api/notes", (req, res)=>{
+    
+});
+//for deleting notes depending on their id
+app.delete("/api/notes/:id", (req,res)=>{
+
+});
 app.listen(PORT, () => console.log("Listening on port "+ PORT));
