@@ -29,19 +29,19 @@ app.post("/api/notes", (req, res)=>{
     let list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     let length = (list.length).toString();
 
-    noteNew.len = length;
+    noteNew.id = length;
     list.push(noteNew);
 
     fs.writeFileSync("./db/db.json", JSON.stringify(list));
     res.json(list);
 });
 //for deleting notes depending on their length as identification
-app.delete("/api/notes/:len", (req,res)=>{
+app.delete("/api/notes/:id", (req,res)=>{
     let list = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let id = (req.params.len).toString();
+    let noteId = (req.params.len).toString();
 
     list = list.filter(selected =>{
-        return selected.id != id;
+        return selected.id != noteId;
     });
     fs.writeFileSync("./db/db.json", JSON.stringify(list));
     res.json(list);
